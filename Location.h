@@ -1,3 +1,5 @@
+// This code defines the Location class with attributes for geographical details and pathfinding purposes, along with necessary methods and operators
+
 #ifndef LOCATION_H                   // if not defined
 #define LOCATION_H                   // then define           -> to avoid multiple inclusions to same header file
 
@@ -98,7 +100,9 @@ int Location::operator> (const Location &rhs) const{
 	}
 }
 
-class compareLocation{
+class compareLocation
+{ // The compareLocation functor is designed to facilitate comparisons between Location objects in data structures that require sorting or prioritization.
+
 public:
 	bool operator()(const Location* l1, const Location* l2) const{
 		bool output = false;
@@ -109,4 +113,4 @@ public:
 	}
 };
 
-#endif
+#endif // to mark the end of a conditional preprocessor directive that started with #if, #ifdef, or #ifndef

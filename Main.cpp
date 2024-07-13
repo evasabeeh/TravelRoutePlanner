@@ -1,3 +1,5 @@
+// // This program is designed to parse city and route data from files, build a graph from that data, and then find the shortest or cheapest path between two specified cities using Dijkstra's algorithm. It outputs the results to an HTML file.
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -5,7 +7,7 @@
 #include <vector>
 #include <stack>
 
-#include "FileOperations.h"
+#include "FileOperations.h"          // custom header
 #include "Route.h"
 #include "GraphFunctions.h"
 
@@ -24,7 +26,6 @@ int main(int argc, char* argv[]){
 	if(argc > 1){
 		citiesFilename = argv[1];
 	}
-
 	else{
 		cout << "Enter filename containing cities: ";
 		cin >> citiesFilename;
@@ -33,7 +34,6 @@ int main(int argc, char* argv[]){
 	if(argc > 2){
 		routesFilename  = argv[2];
 	}
-	
 	else{
 		cout << "Enter filename containing routes: ";
 		cin >> routesFilename;
@@ -42,7 +42,6 @@ int main(int argc, char* argv[]){
 	if(argc > 3){
 		outputFilename = argv[3];
 	}
-
 	else{
 		cout << "Enter filename for output (.html): ";
 		cin >> outputFilename;
@@ -51,7 +50,6 @@ int main(int argc, char* argv[]){
 	if(argc > 4){
 		origin = argv[4];
 	}
-
 	else{
 		cout << "Origin: ";
 		cin >> origin;
@@ -60,7 +58,6 @@ int main(int argc, char* argv[]){
 	if(argc > 5){
 		destination = argv[5];
 	}
-
 	else{
 		cout << "Destination: ";
 		cin >> destination;
@@ -69,7 +66,6 @@ int main(int argc, char* argv[]){
 	if(argc > 6){
 		preference = argv[6];
 	}
-
 	else{
 		cout << "Enter a preference (fastest/cheapest): ";
 		cin >> preference;
@@ -81,7 +77,6 @@ int main(int argc, char* argv[]){
 	else if(preference.compare("fastest") == 0){
 		biPreference = false;
 	}
-
 	else{
 		cout << "Invalid entry";
 		return 0;

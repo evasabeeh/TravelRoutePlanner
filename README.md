@@ -20,9 +20,9 @@
 ## Specifications
 
 - Optimized travel route plan
-- Implements Dijkstra's Algorithm
+- Route visualisation on Google Map
 - Uses Graph data structure
-- Flight, train & bus Routes
+- Via flight
 - Fastest or cheapest preference
 
 ## Implementation

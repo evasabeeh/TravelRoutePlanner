@@ -1,3 +1,5 @@
+//File defines the Graph class and provides several methods for handling graph operations, such as finding the shortest path using Dijkstra's algorithm, getting weights of routes, and generating stacks of cities and routes for the shortest path.
+
 #ifndef GRAPHFUCNTIONS_H
 #define GRAPHFUNCTIONS_H
 
@@ -13,8 +15,9 @@
 #include "Route.h"
 #include "FileOperations.h"
 
-using namespace std;
+using namespace std;            // allows for using standard library classes without the std:: prefix.
 
+// It contains methods for initializing the graph, retrieving cities and routes, calculating weights, finding the shortest path, and generating stacks for output.
 class Graph{
 public:
 	vector<Location*> cities;
@@ -40,14 +43,6 @@ public:
 	stack<Location*>cityStacker(string destinationS);
 	stack<Route*> routeStacker(string destinationS, bool costOrTime);
 
-//-----------------------------------------------------------------------
-/*	SCRAPPED METHODS
-	
-	Location* getSmallest();
-	void printShortestRoute(string destinationS);
-	void printOutRoutes();
-*/
-//-----------------------------------------------------------------------
 };
 
 Graph::Graph(string nodesFile, string edgesFile){
@@ -55,9 +50,9 @@ Graph::Graph(string nodesFile, string edgesFile){
 	cities = locationParser(nodesFile, routes);
 
 	numExists = cities.size();
-	
 }
 
+// methods retrieve a city by its name
 int Graph::getCityIndex(string key){
 	int output = -1;
 	for(int i = 0; i < cities.size(); i++){
@@ -79,7 +74,7 @@ Location* Graph::getCity(string key){
 	}
 }
 
-
+// calculate the weight (cost or time) of a route between two cities
 float Graph::getWeight(string startS, string endS, bool costOrTime){
 	Location* start = getCity(startS);
 	Location* end = getCity(endS);
@@ -94,7 +89,6 @@ float Graph::getWeight(string startS, string endS, bool costOrTime){
 			}
 		}
 	}
-
 	return -1;
 }
 
@@ -110,10 +104,8 @@ float Graph::getWeight(Location* start, Location* end, bool costOrTime){
 			}
 		}
 	}
-
 	return -1;
 }
-
 
 void Graph::Dijkstras(string startS, bool costOrTime){
 	
@@ -143,8 +135,6 @@ void Graph::Dijkstras(string startS, bool costOrTime){
 			return;
 		}
 		
-		
-		//cout << "Smallest popped: " << smallest -> lengthFromStart << endl;	//debug
 		smallest -> exists = false;
 
 		vector<Location*>* adjacentCities = adjacentLocations(smallest);	
@@ -155,28 +145,20 @@ void Graph::Dijkstras(string startS, bool costOrTime){
 
 			float distance = getWeight(smallest, adjacent, costOrTime) + smallest -> lengthFromStart;
 
-			//cout << distance << "	vs	" << adjacent -> lengthFromStart << endl;	//debug
-
-
 			if(distance < adjacent -> lengthFromStart){
 
 				adjacent -> lengthFromStart = distance;
 				adjacent -> previous = smallest;
 
 				totalDistance = distance;
-
 			}
-
 			make_heap(const_cast<Location**>(&minHeap.top()), const_cast<Location**>(&minHeap.top()) + minHeap.size(), compareLocation());
-
 		}
-
 		delete adjacentCities;
-		
-
 	}
 }
 
+// return the adjacent locations and routes for a given city
 vector<Location*>* Graph::adjacentLocations(Location* city){
 
 	vector<Location*>* output = new vector<Location*>();
@@ -184,10 +166,8 @@ vector<Location*>* Graph::adjacentLocations(Location* city){
 	for(int i = 0; i < city -> routes.size(); i++){
 		if(city -> routes[i] -> destination -> exists == true){
 			output -> push_back(city -> routes[i] -> destination);
-			//cout << i <<" Adjacent: " << city -> routes[i] -> destination -> exists << endl;	//debug
 		}
 	}
-
 	return output;
 }
 
@@ -215,19 +195,18 @@ Route* Graph::getRoute(Location* start, bool costOrTime, float totalDistance){
 					return routes -> at(i);
 				}
 			}
-
 			else if(costOrTime == false){
 				if(fabs((totalDistance - routes -> at(i) -> time) - routes -> at(i) -> origin -> lengthFromStart) > epsilon){
 					return routes -> at(i);
 				}
 			}
-		
 	}
 	return NULL;
 }
 
-stack<Location*> Graph::cityStacker(string destinationS){
-	
+stack<Location*> Graph::cityStacker(string destinationS)
+{ // create stacks of cities and routes for the shortest path to a destination city
+
 	Location* destination = getCity(destinationS);
 	stack<Location*> output;
 
@@ -235,9 +214,7 @@ stack<Location*> Graph::cityStacker(string destinationS){
 		output.push(destination);
 		destination = destination -> previous;
 	}
-
 	return output;
-
 }
 
 stack<Route*> Graph::routeStacker(string destinationS, bool costOrTime){
@@ -252,9 +229,7 @@ stack<Route*> Graph::routeStacker(string destinationS, bool costOrTime){
 
 		totalDistance = destination -> lengthFromStart;
 	}
-
 	return output;
 }
-
 
 #endif

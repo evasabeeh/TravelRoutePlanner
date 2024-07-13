@@ -1,3 +1,5 @@
+// Defines functions to parse location and route data from files and create Location and Route objects accordingly. These functions are essential for setting up the data structures required for graph-based pathfinding algorithms.
+
 #ifndef PARSER_H
 #define PARSER_H
 
@@ -11,8 +13,9 @@
 
 using namespace std;
 
-vector<Location*> locationParser(string filename, vector<Route*> routes){
-	fstream locations(filename.c_str());
+// Parses location data from a file, creates Location objects, and associates them with Route objects. Returns a vector of Location pointers.
+vector<Location*> locationParser(string filename, vector<Route*> routes){ 
+	fstream locations(filename.c_str()); // used to create an fstream object named locations that opens a file specified by the filename variable
 
 	string country;
 	string city;
@@ -27,9 +30,9 @@ vector<Location*> locationParser(string filename, vector<Route*> routes){
 		getline(locations, city, ',');
 		getline(locations, latitude, ',');
 		getline(locations, longitude);
-		//cout << "Country:" << country << " City:" << city << " Lat:" << latitude << " Lon:" << longitude << endl << endl << endl;
-
-		node = new Location(country, city, atof(latitude.c_str()), atof(longitude.c_str()));
+		
+		node = new Location(country, city, atof(latitude.c_str()), atof(longitude.c_str()) // used to convert a std::string to a double in C++. 
+		);
 
 		vector<Route*>::iterator it = routes.begin();
 
@@ -45,12 +48,12 @@ vector<Location*> locationParser(string filename, vector<Route*> routes){
 		}
 
 		cities.push_back(node);
-
 	}
 	cout << "Cities Parsed from: " << filename << endl;
 	return cities;
 }
 
+// Parses route data from a file, creates Route objects, and stores them in a vector. Returns a vector of Route pointers.
 vector<Route*> routeParser(string filename){
 
 	fstream routes(filename.c_str());
@@ -77,19 +80,14 @@ vector<Route*> routeParser(string filename){
 		getline(routes, cost, ',');
 		getline(routes, note);
 
-		//cout << "Origin: " << originS << " Destination: " << destinationS << "---" << type << " " << time << " " << cost << " " << endl;
-
 		edge = new Route(origin, destination, type, atof(time.c_str()), atof(cost.c_str()), note);
 		edge -> destinationS = destinationS;
 		edge -> originS = originS;
 
 		allRoutes.push_back(edge);
 	}
-
 	cout << "Routes Parsed from: " << filename << endl;
 	return allRoutes;
 }
-
-
 
 #endif

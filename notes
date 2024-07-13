@@ -1,3 +1,9 @@
 CMAKE: https://cmake.org/about/
 
-main.cpp:  https://chatgpt.com/share/2678cd2c-df4f-4999-be33-9a94fc7bae73
+Code explaination: https://chatgpt.com/share/2678cd2c-df4f-4999-be33-9a94fc7bae73
+Few snippets explaination: https://chatgpt.com/share/368a5377-5947-4aa9-884d-9d2b2f6ed5c6
+
+
+>> In C++, tempCodeRunnerFile typically refers to a temporary file created by an IDE when you run a snippet of code or a single file without saving it. This is often seen in environments like Visual Studio Code when using extensions like "Code Runner" for quickly executing code.
+
+>>travel.make - It is a makeFile, a build rule that specifies how to compile and link a C++ project using the g++ compiler.
